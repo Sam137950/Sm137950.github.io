@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivel del Tanque</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+        }
+        #levelDisplay {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="levelDisplay">Cargando nivel...</div>
+    <script>
+        const blynkAuthToken = "H7PRm2N4-fOmsuHjGbx52mEZYaP5B1ap"; // Reemplaza con tu token de autenticación de Blynk
+        const blynkVirtualPin = "V0"; // Reemplaza con tu pin virtual
+        const blynkUrl = http://blynk-cloud.com/${blynkAuthToken}/get/${blynkVirtualPin};
+
+        async function getBlynkData() {
+            try {
+                const response = await fetch(blynkUrl);
+                const data = await response.json();
+                const distance = data[0];
+                updateLabel(distance);
+            } catch (error) {
+                console.error("Error getting data from Blynk:", error);
+            }
+        }
+
+        function updateLabel(distance) {
+            const levelDisplay = document.getElementById("levelDisplay");
+            levelDisplay.innerText = Nivel: ${distance} cm;
+        }
+
+        // Llama a la función para obtener datos cuando se cargue la página
+        window.onload = getBlynkData;
+    </script>
+</body>
+</html>
